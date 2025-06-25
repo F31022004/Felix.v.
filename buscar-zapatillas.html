@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscar Zapatillas</title>
+
+  <!-- Fuentes e íconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: url('https://images.unsplash.com/photo-1562183241-b937e95585b6') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: -1;
+    }
+
+    header {
+      background-color: #000;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #f0c14b;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #eee;
+    }
+
+    nav {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0c14b;
+    }
+
+    .container {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-box select,
+    .form-box button {
+      padding: 0.8rem;
+      margin: 0.7rem 0;
+      width: 100%;
+      border-radius: 30px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background-color: #fff;
+      color: #111;
+    }
+
+    .form-box button {
+      background-color: #f0c14b;
+      color: #000;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .form-box button:hover {
+      background-color: #fff;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      color: #111;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      color: #000;
+    }
+
+    .card p {
+      margin: 0.3rem 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .card img {
+        height: 200px;
+      }
+
+      .form-box {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-shoe-prints"></i> Buscar Zapatillas</h1>
+    <p>Explora nuestras últimas colecciones urbanas</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="verificar.html">Verificar Modelo</a>
+    <a href="registrar-producto.html">Registrar Producto</a>
+    <a href="servicios.html">Servicios</a>
+  </nav>
+
+  <div class="container">
+    <div class="form-box">
+      <select id="marcaSelect" onchange="actualizarCategorias()">
+        <option value="">-- Selecciona una marca --</option>
+        <option value="Nike">Nike</option>
+        <option value="Adidas">Adidas</option>
+        <option value="Puma">Puma</option>
+        <option value="Reebok">Reebok</option>
+        <option value="New Balance">New Balance</option>
+      </select>
+
+      <select id="categoriaSelect">
+        <option value="">-- Selecciona un tipo de zapatilla --</option>
+      </select>
+
+      <button onclick="buscarZapatillas()">Buscar</button>
+    </div>
+
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    const zapatillas = [
+      { nombre: "AirMax Pro", marca: "Nike", categoria: "Deportiva", precio: "S/299", imagen: "imagen.jpg" },
+      { nombre: "Urban Elegance", marca: "Nike", categoria: "Elegante", precio: "S/299", imagen: "imagen 1.jpg" },
+      { nombre: "Urban Runner", marca: "Adidas", categoria: "Casual", precio: "S/259", imagen: "imagen 2.jpg" },
+      { nombre: "Retro Boost", marca: "Adidas", categoria: "Retro", precio: "S/249", imagen: "imagen 3.jpg" },
+      { nombre: "StreetWear X", marca: "Puma", categoria: "Retro", precio: "S/239", imagen: "imagen 4.jpg" },
+      { nombre: "Minimal One", marca: "Puma", categoria: "Minimalista", precio: "S/199", imagen: "imagen 5.jpg" },
+      { nombre: "Classic Move", marca: "Reebok", categoria: "Clásica", precio: "S/219", imagen: "imagen 6.jpg" },
+      { nombre: "NB Runner", marca: "New Balance", categoria: "Deportiva", precio: "S/279", imagen: "imagen 7.jpg" }
+    ];
+
+    const categoriasPorMarca = {
+      'Nike': ['Deportiva', 'Elegante'],
+      'Adidas': ['Casual', 'Retro'],
+      'Puma': ['Retro', 'Minimalista'],
+      'Reebok': ['Clásica'],
+      'New Balance': ['Deportiva']
+    };
+
+    function actualizarCategorias() {
+      const marca = document.getElementById('marcaSelect').value;
+      const categoriaSelect = document.getElementById('categoriaSelect');
+
+      categoriaSelect.innerHTML = '<option value="">-- Selecciona un tipo de zapatilla --</option>';
+
+      if (marca && categoriasPorMarca[marca]) {
+        categoriasPorMarca[marca].forEach(cat => {
+          const option = document.createElement('option');
+          option.value = cat;
+          option.textContent = cat;
+          categoriaSelect.appendChild(option);
+        });
+      }
+    }
+
+    function buscarZapatillas() {
+      const marca = document.getElementById('marcaSelect').value;
+      const categoria = document.getElementById('categoriaSelect').value;
+      const resultados = zapatillas.filter(z => {
+        const coincideMarca = marca === '' || z.marca === marca;
+        const coincideCategoria = categoria === '' || z.categoria === categoria;
+        return coincideMarca && coincideCategoria;
+      });
+
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      if (resultados.length === 0) {
+        resultsDiv.innerHTML = '<p style="text-align:center;">No se encontraron resultados.</p>';
+        return;
+      }
+
+      resultados.forEach(z => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${z.imagen}" alt="${z.nombre}">
+          <div class="card-content">
+            <h3>${z.nombre}</h3>
+            <p>Marca: ${z.marca}</p>
+            <p>Tipo: ${z.categoria}</p>
+            <p><strong>Precio: ${z.precio}</strong></p>
+          </div>
+        `;
+        resultsDiv.appendChild(card);
+      });
+    }
+
+    window.onload = actualizarCategorias;
+  </script>
+</body>
+</html>

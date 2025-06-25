@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificar Producto</title>
+
+  <!-- Fuente moderna y Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: url('fondo3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #f0c14b;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0c14b;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 3rem auto;
+      background-color: rgba(172, 159, 159, 0.95);
+      border-radius: 12px;
+      padding: 2rem;
+      color: #000;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    select, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    select {
+      background-color: #f9f9f9;
+    }
+
+    button {
+      background-color: #f0c14b;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #000;
+      color: #fff;
+      transform: scale(1.03);
+    }
+
+    .resultado {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background-color: #eeeeee;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: #111;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .resultado img {
+      width: 160px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .resultado h3 {
+      margin-bottom: 0.5rem;
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      .resultado {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .resultado img {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <i class="fas fa-barcode"></i> Verificador de Zapatillas
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="buscar-zapatillas.html">Buscar zapatillas</a>
+    <a href="registrar-producto.html">Registrar Producto</a>
+    <a href="servicios.html">Servicios</a>
+  </nav>
+
+  <div class="container">
+    <select id="codigoSelect">
+      <option value="">Selecciona un código de producto</option>
+      <option value="ZAP001">ZAP001 - AirMax Pro (Nike)</option>
+      <option value="ZAP002">ZAP002 - Urban Elegance (Nike)</option>
+      <option value="ZAP003">ZAP003 - Urban Runner (Adidas)</option>
+      <option value="ZAP004">ZAP004 - Classic Move (Reebok)</option>
+      <option value="ZAP005">ZAP005 - Retro Boost (Adidas)</option>
+      <option value="ZAP006">ZAP006 - StreetWear X (Puma)</option>
+      <option value="ZAP007">ZAP007 - Minimal One (Puma)</option>
+      <option value="ZAP008">ZAP008 - NB Runner (New Balance)</option>
+    </select>
+    <button onclick="verificarProducto()">Verificar</button>
+
+    <div id="resultado" class="resultado" style="display:none;"></div>
+  </div>
+
+  <script>
+    const baseDatos = {
+      "ZAP001": { nombre: "AirMax Pro", marca: "Nike", categoria: "Deportiva", precio: "S/299", imagen: "imagen.jpg" },
+      "ZAP002": { nombre: "Urban Elegance", marca: "Nike", categoria: "Elegante", precio: "S/299", imagen: "imagen 1.jpg" },
+      "ZAP003": { nombre: "Urban Runner", marca: "Adidas", categoria: "Casual", precio: "S/259", imagen: "imagen 2.jpg" },
+      "ZAP004": { nombre: "Classic Move", marca: "Reebok", categoria: "Clásica", precio: "S/219", imagen: "imagen 6.jpg" },
+      "ZAP005": { nombre: "Retro Boost", marca: "Adidas", categoria: "Retro", precio: "S/249", imagen: "imagen 3.jpg" },
+      "ZAP006": { nombre: "StreetWear X", marca: "Puma", categoria: "Retro", precio: "S/239", imagen: "imagen 4.jpg" },
+      "ZAP007": { nombre: "Minimal One", marca: "Puma", categoria: "Minimalista", precio: "S/199", imagen: "imagen 5.jpg" },
+      "ZAP008": { nombre: "NB Runner", marca: "New Balance", categoria: "Deportiva", precio: "S/279", imagen: "imagen 7.jpg" },
+
+    };
+
+    function verificarProducto() {
+      const codigo = document.getElementById('codigoSelect').value;
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (codigo && baseDatos[codigo]) {
+        const prod = baseDatos[codigo];
+        resultadoDiv.innerHTML = `
+          <div>
+            <h3>Producto Encontrado:</h3>
+            <p><strong>Nombre:</strong> ${prod.nombre}</p>
+            <p><strong>Marca:</strong> ${prod.marca}</p>
+            <p><strong>Tipo:</strong> ${prod.categoria}</p>
+            <p><strong>Precio:</strong> ${prod.precio}</p>
+          </div>
+          <img src="${prod.imagen}" alt="${prod.nombre}">
+        `;
+        resultadoDiv.style.display = 'flex';
+      } else {
+        resultadoDiv.innerHTML = `<p style="color:red;"><strong>Por favor selecciona un código válido.</strong></p>`;
+        resultadoDiv.style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>

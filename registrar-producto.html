@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Zapatilla</title>
+
+  <!-- Fuentes e íconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: url('fondo 4.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #f0c14b;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0c14b;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 3rem auto;
+      background-color: rgba(156, 150, 150, 0.97);
+      padding: 2rem;
+      border-radius: 15px;
+      color: #111;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.4rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #f0c14b;
+      color: #111;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #000;
+      color: #fff;
+      transform: scale(1.03);
+    }
+
+    .mensaje {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .mensaje.exito {
+      background-color: #e0ffe0;
+      border: 1px solid #00cc66;
+      color: #006633;
+    }
+
+    .mensaje.error {
+      background-color: #ffe0e0;
+      border: 1px solid #cc0000;
+      color: #990000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <i class="fas fa-plus-square"></i> Registrar Zapatilla
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="buscar-zapatillas.html">Buscar Zapatillas</a>
+    <a href="verificar.html">Verificar Modelo</a>
+    <a href="servicios.html">Servicios</a>
+  </nav>
+
+  <div class="container">
+    <label for="marca">Marca:</label>
+    <select id="marca" onchange="actualizarTipos()">
+      <option value="">Seleccionar</option>
+      <option value="Nike">Nike</option>
+      <option value="Adidas">Adidas</option>
+      <option value="Puma">Puma</option>
+      <option value="Reebok">Reebok</option>
+      <option value="New Balance">New Balance</option>
+    </select>
+
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" onchange="autoCompletar()">
+      <option value="">Seleccionar</option>
+    </select>
+
+    <label for="codigo">Código:</label>
+    <input type="text" id="codigo" placeholder="Ej: ZAP005">
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" placeholder="Ej: Street Runner">
+
+    <label for="precio">Precio (S/):</label>
+    <input type="number" id="precio" placeholder="Ej: 289">
+
+    <button onclick="registrarZapatilla()">Registrar</button>
+
+    <div id="mensaje" class="mensaje" style="display:none;"></div>
+  </div>
+
+  <script>
+    const baseZapatillas = {
+      "Nike": {
+        "Training": { codigo: "ZAP009", nombre: "Swift Core", precio: 269, imagen: "imagen 8.jpg" }
+      },
+      "Adidas": {
+        "Retro": { codigo: "ZAP005", nombre: "Retro Boost", precio: 249, imagen: "imagen 3.jpg" },
+        "Urbana": { codigo: "ZAP010", nombre: "Rebel Street", precio: 259, imagen: "imagen 9.jpg" }
+      },
+      "Puma": {
+        "Retro": { codigo: "ZAP006", nombre: "StreetWear X", precio: 239, imagen: "imagen 4.jpg" },
+        "Minimalista": { codigo: "ZAP007", nombre: "Minimal One", precio: 199, imagen: "imagen 5.jpg" },
+        "Urbana": { codigo: "ZAP010", nombre: "Puma City Flex", precio: 239, imagen: "puma-city.jpg" }
+      },
+      "Reebok": {
+        "Clásica": { codigo: "ZAP004", nombre: "Classic Move", precio: 219, imagen: "imagen 6.jpg" }
+      },
+      "New Balance": {
+        "Deportiva": { codigo: "ZAP008", nombre: "NB Runner", precio: 279, imagen: "imagen 7.jpg" }
+      }
+    };
+
+    function actualizarTipos() {
+      const marca = document.getElementById("marca").value;
+      const tipoSelect = document.getElementById("tipo");
+      tipoSelect.innerHTML = '<option value="">Seleccionar</option>';
+      if (baseZapatillas[marca]) {
+        const tipos = Object.keys(baseZapatillas[marca]);
+        tipos.forEach(tipo => {
+          const option = document.createElement("option");
+          option.value = tipo;
+          option.textContent = tipo;
+          tipoSelect.appendChild(option);
+        });
+      }
+    }
+
+    function autoCompletar() {
+      const marca = document.getElementById("marca").value;
+      const tipo = document.getElementById("tipo").value;
+
+      if (baseZapatillas[marca] && baseZapatillas[marca][tipo]) {
+        const datos = baseZapatillas[marca][tipo];
+        document.getElementById("codigo").value = datos.codigo;
+        document.getElementById("nombre").value = datos.nombre;
+        document.getElementById("precio").value = datos.precio;
+      } else {
+        document.getElementById("codigo").value = "";
+        document.getElementById("nombre").value = "";
+        document.getElementById("precio").value = "";
+      }
+    }
+
+    function registrarZapatilla() {
+      const codigo = document.getElementById("codigo").value.trim();
+      const nombre = document.getElementById("nombre").value.trim();
+      const marca = document.getElementById("marca").value;
+      const tipo = document.getElementById("tipo").value;
+      const precio = document.getElementById("precio").value;
+      const mensajeDiv = document.getElementById("mensaje");
+
+      if (!codigo || !nombre || !precio || !marca || !tipo) {
+        mensajeDiv.className = "mensaje error";
+        mensajeDiv.style.display = "block";
+        mensajeDiv.innerHTML = "<strong>Error:</strong> Por favor, completa todos los campos.";
+        return;
+      }
+
+      mensajeDiv.className = "mensaje exito";
+      mensajeDiv.style.display = "block";
+      mensajeDiv.innerHTML = `<strong>Producto registrado correctamente:</strong><br>
+        <ul>
+          <li><strong>Código:</strong> ${codigo}</li>
+          <li><strong>Nombre:</strong> ${nombre}</li>
+          <li><strong>Marca:</strong> ${marca}</li>
+          <li><strong>Tipo:</strong> ${tipo}</li>
+          <li><strong>Precio:</strong> S/${precio}</li>
+        </ul>`;
+    }
+  </script>
+</body>
+</html>
+
+
+
+

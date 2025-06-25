@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identidad Zapatillera</title>
+
+  <!-- Enlace a Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #111;
+      margin: 0;
+      padding: 0;
+      background: url('fondo1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5); /* oscurece el fondo */
+      z-index: -1;
+    }
+
+    header {
+      background-color: #000000;
+      color:#f0c14b;
+      padding: 2rem 1rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0c14b;
+    }
+
+    .container {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      background-color: #c2b1b1;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      width: 100%;
+      max-width: 1000px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h1, .card h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .ad-banner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .ad {
+      width: 280px;
+      background-color: #d8cdcd;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .ad:hover {
+      transform: scale(1.03);
+    }
+
+    .ad img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .ad h3 {
+      margin: 1rem 0 0.5rem;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #000;
+    }
+
+    .ad p {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+
+    .ad button {
+      display: block;
+      width: 80%;
+      margin: 0.5rem auto 1rem;
+      padding: 0.6rem;
+      border: none;
+      background-color: #111;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .ad button:hover {
+      background-color: #f0c14b;
+      color: #111;
+    }
+
+    .footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-icons {
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #f0c14b;
+    }
+
+    button {
+      background-color: #111;
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f0c14b;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VELZA</h1>
+    <p>Explora los modelos más icónicos del momento</p>
+  </header>
+
+  <nav>
+    <a href="buscar-zapatillas.html">Buscar Zapatillas</a>
+    <a href="verificar.html">Verificar Modelo</a>
+    <a href="registrar-producto.html">Registrar Producto</a>
+    <a href="servicios.html">Servicios</a>
+  </nav>
+
+  <div class="container">
+    <section class="card">
+      <h1>Modelos Destacados</h1>
+      <div class="ad-banner">
+        <div class="ad">
+          <img src="logo.jpg" alt="Zapatilla 1">
+          <h3>AirMax Pro</h3>
+          <p>Desde S/299 - 20% de descuento</p>
+        </div>
+        <div class="ad">
+          <img src="logo4.jpg" alt="Zapatilla 2">
+          <h3>Urban Runner</h3>
+          <p>Precio: S/249</p>
+        </div>
+        <div class="ad">
+          <img src="logo2.jpg" alt="Zapatilla 3">
+          <h3>StreetWear X</h3>
+          <p>2x1 en tallas seleccionadas</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ofertas de Temporada</h2>
+      <p style="text-align:center; margin-bottom:1rem;">Aprovecha nuestras promociones exclusivas en línea. Hasta 40% de descuento por tiempo limitado.</p>
+      <center>
+        <a href="buscar-zapatillas.html">
+          <button>Ir a Búsqueda</button>
+        </a>
+      </center>
+    </section>
+  </div>
+
+  <footer class="footer">
+    &copy; 2025 Identidad Zapatillera. Todos los derechos reservados.
+    <div class="social-icons">
+      <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

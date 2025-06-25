@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios</title>
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: url('fondo6.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      color: #fff;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(0,0,0,0.85);
+      color: #f0c14b;
+      text-align: center;
+      padding: 2rem 1rem;
+      text-transform: uppercase;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #faf6f6;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0c14b;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: rgba(192, 181, 181, 0.97);
+      border-radius: 15px;
+      color: #2d3436;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #000;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #f1f2f6;
+      margin: 0.8rem 0;
+      padding: 1.2rem 1rem;
+      border-left: 6px solid #0984e3;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    li:hover {
+      transform: translateX(6px);
+      background-color: #dfeefc;
+    }
+
+    .volver {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .volver a {
+      background-color: #2d3436;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .volver a:hover {
+      background-color: #f0c14b;
+      color: #2d3436;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <i class="fas fa-cogs"></i> Servicios Disponibles
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="buscar-zapatillas.html">Buscar Zapatillas</a>
+    <a href="verificar.html">Verificar Modelo</a>
+    <a href="registrar-producto.html">Registrar Producto</a>
+  </nav>
+
+  <div class="container">
+    <h2>¿Qué puedes hacer aquí?</h2>
+    <ul>
+      <li><i class="fas fa-check-circle" style="color:#0984e3;"></i> Verificación de autenticidad de zapatillas por código.</li>
+      <li><i class="fas fa-search" style="color:#0984e3;"></i> Búsqueda rápida por marca y tipo de zapatilla.</li>
+      <li><i class="fas fa-tags" style="color:#0984e3;"></i> Consulta de precios y disponibilidad.</li>
+    </ul>
+
+    <div class="volver">
+      <a href="index.html"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
